@@ -164,10 +164,10 @@ class _PrinterScreenState extends State<PrinterScreen> {
         child: Text('NONE'),
       ));
     } else {
-      _devices!.forEach((device) {
+      _devices!.forEach((x) {
         items.add(DropdownMenuItem(
-          child: Text(device.name ?? ""),
-          value: device,
+          child: Text(x.name ?? ""),
+          value: x,
         ));
       });
     }
