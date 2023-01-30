@@ -6,7 +6,7 @@ import 'package:blue_thermal_printer/blue_thermal_printer.dart';
 import 'dart:io';
 
 ///Test printing
-class TestPrint {
+class NormalPrint {
   BlueThermalPrinter bluetooth = BlueThermalPrinter.instance;
 
   sample() async {

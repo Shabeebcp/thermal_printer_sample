@@ -1,9 +1,13 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:blue_thermal_printer/blue_thermal_printer.dart';
+import 'package:esc_pos_bluetooth/esc_pos_bluetooth.dart';
+import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pfriteeer/testPrint.dart';
+import 'package:pfriteeer/PrintSamples/esc_blutooth_model.dart';
+import 'package:pfriteeer/PrintSamples/normal_method.dart';
 
 class PrinterScreen extends StatefulWidget {
   PrinterScreen({Key? key}) : super(key: key);
@@ -124,9 +128,25 @@ class _PrinterScreenState extends State<PrinterScreen> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.brown),
                   onPressed: () {
-                    TestPrint().sample();
+                    NormalPrint().sample();
                   },
-                  child: const Text('PRINT TEST',
+                  child: const Text('Normal PRINT TEST',
+                      style: TextStyle(color: Colors.white)),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 10.0, right: 10.0, top: 50),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.brown),
+                  onPressed: () async {
+                    var paper = PaperSize.mm80;
+                    var profile = await CapabilityProfile.load();
+                    var bytes =
+                        ESCPOSBluetoothModel().demoReceipt(paper, profile);
+                    await blue.writeBytes(Uint8List.fromList(bytes));
+                  },
+                  child: const Text('Esc_pos_bluetooth_PRINT TEST',
                       style: TextStyle(color: Colors.white)),
                 ),
               ),
